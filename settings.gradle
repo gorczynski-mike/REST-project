@@ -1,1 +1,3 @@
 rootProject.name = 'tasks'
+include 'na-szybko'
+
