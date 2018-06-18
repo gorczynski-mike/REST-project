@@ -1,3 +1,4 @@
 rootProject.name = 'tasks'
 include 'na-szybko'
+include 'prosty-programik'
 
