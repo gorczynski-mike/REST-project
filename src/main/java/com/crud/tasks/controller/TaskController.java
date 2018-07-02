@@ -37,8 +37,8 @@ public class TaskController {
 //        return taskMapper.mapToTaskDto(service.findTaskById(taskId));
 //    }
 
-    @DeleteMapping(value = "deleteTask/{taskId}")
-    public void deleteTask(@PathVariable Long taskId) {
+    @DeleteMapping(value = "deleteTask")
+    public void deleteTask(@RequestParam Long taskId) {
         service.deleteTaskById(taskId);
     }
 

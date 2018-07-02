@@ -7,12 +7,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class TasksApplicationTests {
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
+//public class TasksApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+//	@Test
+//	public void contextLoads() {
+//	}
 
-}
+//}
