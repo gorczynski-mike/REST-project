@@ -4,6 +4,7 @@ import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class TaskController {
 //    }
 
     @PostMapping(value = "createTask", consumes = {APPLICATION_JSON_VALUE, APPLICATION_FORM_URLENCODED_VALUE})
-    public void createTask(TaskDto taskDto) {
+    public void createTask(@RequestBody TaskDto taskDto) {
         service.saveTask(taskMapper.mapToTask(taskDto));
     }
 
