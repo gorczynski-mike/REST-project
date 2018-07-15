@@ -44,6 +44,7 @@ public class TrelloClient {
                 .queryParam("key", trelloAppKey)
                 .queryParam("token", trelloAppToken)
                 .queryParam("fields", "name,id")
+                .queryParam("lists", "all")
                 .build().encode().toUri();
     }
 
