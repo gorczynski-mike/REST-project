@@ -22,10 +22,10 @@ public class SimpleEmailService {
         try {
             SimpleMailMessage simpleMailMessage = createMailMessage(mail);
             javaMailSender.send(simpleMailMessage);
+            LOGGER.info("Mail sent successfully.");
         } catch (MailException e) {
             LOGGER.error("Failed to process sending new email: ", e.getMessage(), e);
         }
-        LOGGER.info("Mail sent successfully.");
     }
 
     private SimpleMailMessage createMailMessage(Mail mail) {
