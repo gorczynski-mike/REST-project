@@ -32,11 +32,6 @@ public class TaskController {
         return taskMapper.mapToTaskDto(service.findTaskById(taskId).orElseThrow(TaskNotFoundException::new));
     }
 
-//    @RequestMapping(method = RequestMethod.GET, value = "getTask/{taskId}")
-//    public TaskDto getTask(@PathVariable Long taskId) {
-//        return taskMapper.mapToTaskDto(service.findTaskById(taskId));
-//    }
-
     @DeleteMapping(value = "deleteTask")
     public void deleteTask(@RequestParam Long taskId) {
         service.deleteTaskById(taskId);
@@ -44,14 +39,8 @@ public class TaskController {
 
     @PutMapping(value = "updateTask")
     public TaskDto updateTask(@RequestBody TaskDto taskDto) {
-//        return new TaskDto(1L, "Edited test title", "test_content");
         return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
     }
-
-//    @PostMapping(value = "createTask", consumes = APPLICATION_JSON_VALUE)
-//    public void createTask(@RequestBody TaskDto taskDto) {
-//        service.saveTask(taskMapper.mapToTask(taskDto));
-//    }
 
     @PostMapping(value = "createTask", consumes = {APPLICATION_JSON_VALUE, APPLICATION_FORM_URLENCODED_VALUE})
     public void createTask(@RequestBody TaskDto taskDto) {
