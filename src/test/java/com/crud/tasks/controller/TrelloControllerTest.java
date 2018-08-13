@@ -77,7 +77,8 @@ public class TrelloControllerTest {
         //Given
         TrelloCardDto trelloCardDto = new TrelloCardDto("Test", "Test description", "top", "1");
 
-        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("323", "Test", "http://test.com", null);
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("323", "Test", "http://test.com");
+//        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("323", "Test", "http://test.com", null);
 
         when(trelloFacade.createCard(any(TrelloCardDto.class))).thenReturn(createdTrelloCardDto);
 
