@@ -13,7 +13,7 @@ import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VAL
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/v1/task")
+@RequestMapping("/v1")
 @CrossOrigin(origins = "*")
 public class TaskController {
 
@@ -22,26 +22,25 @@ public class TaskController {
     @Autowired
     private TaskMapper taskMapper;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getTasks")
+    @RequestMapping(method = RequestMethod.GET, value = "/tasks")
     public List<TaskDto> getTasks() {
         return taskMapper.mapToTaskDtoList(service.getAllTasks());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getTask")
-    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException{
-        return taskMapper.mapToTaskDto(service.findTaskById(taskId).orElseThrow(TaskNotFoundException::new)); }
+    @RequestMapping(method = RequestMethod.GET, value = "/tasks/{task_id}")
+    public TaskDto getTask(@PathVariable Long task_id) throws TaskNotFoundException{
+        return taskMapper.mapToTaskDto(service.findTaskById(task_id).orElseThrow(TaskNotFoundException::new)); }
 
-    @DeleteMapping(value = "deleteTask")
-    public void deleteTask(@RequestParam Long taskId) {
-        service.deleteTaskById(taskId);
+    @DeleteMapping(value = "/tasks/{task_id}")
+    public void deleteTask(@PathVariable Long task_id) {
+        service.deleteTaskById(task_id);
     }
 
-    @PutMapping(value = "updateTask")
+    @PutMapping(value = "/tasks")
     public TaskDto updateTask(@RequestBody TaskDto taskDto) {
         return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto))); }
 
-//    @PostMapping(value = "createTask", consumes = {APPLICATION_JSON_VALUE, APPLICATION_FORM_URLENCODED_VALUE})
-    @PostMapping(value = "createTask")
+    @PostMapping(value = "/tasks")
     public void createTask(@RequestBody TaskDto taskDto) {
         service.saveTask(taskMapper.mapToTask(taskDto));
     }
