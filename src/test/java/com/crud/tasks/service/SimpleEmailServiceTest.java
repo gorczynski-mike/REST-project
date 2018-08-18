@@ -6,8 +6,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+
+import javax.mail.internet.MimeMessage;
 
 import static org.mockito.Mockito.*;
 
@@ -19,6 +24,9 @@ public class SimpleEmailServiceTest {
 
     @Mock
     private JavaMailSender mailSender;
+
+    @Autowired
+    MailCreatorService mailCreatorService;
 
     @Test
     public void shouldSendEmail() {
@@ -37,7 +45,7 @@ public class SimpleEmailServiceTest {
         simpleEmailService.sendTrelloMail(mail);
 
         //Then
-        verify(mailSender, times(1)).send(simpleMailMessage);
+        verify(mailSender, times(1)).send(any(MimeMessagePreparator.class));
     }
 
 }
