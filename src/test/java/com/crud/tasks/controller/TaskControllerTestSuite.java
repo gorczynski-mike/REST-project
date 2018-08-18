@@ -49,7 +49,7 @@ public class TaskControllerTestSuite {
         when(taskMapper.mapToTaskDtoList(anyList())).thenReturn(tasksDtoList);
 
         //When & Then
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(0)));
     }
@@ -67,7 +67,7 @@ public class TaskControllerTestSuite {
         when(taskMapper.mapToTaskDtoList(anyList())).thenReturn(tasksDtoList);
 
         //When & Then
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)))
@@ -85,9 +85,8 @@ public class TaskControllerTestSuite {
         when(taskMapper.mapToTaskDto(theTask)).thenReturn(theTaskDto);
 
         //When & Then
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/task/getTask")
-                .contentType(MediaType.APPLICATION_JSON)
-                .param("taskId", "1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/tasks/1")
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title", Matchers.is("test_title")))
@@ -97,8 +96,7 @@ public class TaskControllerTestSuite {
     @Test
     public void shouldDeleteTask() throws Exception {
         //When & Then
-        mockMvc.perform(MockMvcRequestBuilders.delete("/v1/task/deleteTask")
-                .param("taskId", "1"))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/v1/tasks/1"))
                 .andExpect(MockMvcResultMatchers.status().is(200));
         verify(dbService, times(1)).deleteTaskById(1L);
     }
@@ -117,7 +115,7 @@ public class TaskControllerTestSuite {
         when(dbService.saveTask(theTask)).thenReturn(theTask);
 
         //When & Then
-        mockMvc.perform(MockMvcRequestBuilders.put("/v1/task/updateTask")
+        mockMvc.perform(MockMvcRequestBuilders.put("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -140,7 +138,7 @@ public class TaskControllerTestSuite {
         when(dbService.saveTask(theTask)).thenReturn(theTask);
 
         //When & Then
-        mockMvc.perform(MockMvcRequestBuilders.post("/v1/task/createTask")
+        mockMvc.perform(MockMvcRequestBuilders.post("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
