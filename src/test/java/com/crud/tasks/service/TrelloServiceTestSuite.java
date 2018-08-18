@@ -2,11 +2,8 @@ package com.crud.tasks.service;
 
 import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.CreatedTrelloCardDto;
-import com.crud.tasks.domain.Mail;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.client.TrelloClient;
-import org.hamcrest.Matchers;
-import org.hibernate.validator.constraints.Email;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -38,7 +35,7 @@ public class TrelloServiceTestSuite {
         trelloService.createTrelloCard(trelloCardDto);
 
         //Then
-        Mockito.verify(simpleEmailService, Mockito.times(1)).send(Mockito.any());
+        Mockito.verify(simpleEmailService, Mockito.times(1)).sendTrelloMail(Mockito.any());
     }
 
     @Test
@@ -50,7 +47,7 @@ public class TrelloServiceTestSuite {
         trelloService.createTrelloCard(new TrelloCardDto("test", "test", "test", "test"));
 
         //Then
-        Mockito.verify(simpleEmailService, Mockito.times(0)).send(Mockito.any());
+        Mockito.verify(simpleEmailService, Mockito.times(0)).sendTrelloMail(Mockito.any());
     }
 
 }

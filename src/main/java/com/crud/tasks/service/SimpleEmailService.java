@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -22,22 +21,41 @@ public class SimpleEmailService {
     @Autowired
     private MailCreatorService mailCreatorService;
 
-    public void send(Mail mail) {
+    public void sendTrelloMail(Mail mail) {
         LOGGER.info("Starting: sending new email.");
         try {
-            javaMailSender.send(createMimeMessage(mail));
+            javaMailSender.send(createMimeMessageTrello(mail));
             LOGGER.info("Mail sent successfully.");
         } catch (MailException e) {
             LOGGER.error("Failed to process sending new email: ", e.getMessage(), e);
         }
     }
 
-    private MimeMessagePreparator createMimeMessage(final Mail mail) {
+    private MimeMessagePreparator createMimeMessageTrello(final Mail mail) {
         return mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+        };
+    }
+
+    public void sendSchedulerMail(Mail mail) {
+        LOGGER.info("Starting: sending new email.");
+        try {
+            javaMailSender.send(createMimeMessageScheduler(mail));
+            LOGGER.info("Mail sent successfully.");
+        } catch (MailException e) {
+            LOGGER.error("Failed to process sending new email: ", e.getMessage(), e);
+        }
+    }
+
+    private MimeMessagePreparator createMimeMessageScheduler(final Mail mail) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mailCreatorService.buildSchedulerEmail(mail.getMessage()), true);
         };
     }
 

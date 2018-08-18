@@ -28,7 +28,7 @@ public class EmailScheduler {
     public void sendInformationEmail() {
         long size = taskRepository.count();
         String mailMessage = MessageFormat.format("Currently in the database you got: {0,number,integer} task{0, choice, 0#s|1#|1<s}",size);
-        simpleEmailService.send(new Mail(
+        simpleEmailService.sendSchedulerMail(new Mail(
                 adminConfig.getAdminMail(),
                 MAIL_SUBJECT,
                 mailMessage,

@@ -9,7 +9,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,7 +34,7 @@ public class SimpleEmailServiceTest {
         }
 
         //When
-        simpleEmailService.send(mail);
+        simpleEmailService.sendTrelloMail(mail);
 
         //Then
         verify(mailSender, times(1)).send(simpleMailMessage);

@@ -47,4 +47,18 @@ public class MailCreatorService {
         return templateEngine.process("created-trello-card-mail", context);
     }
 
+    public String buildSchedulerEmail(String message) {
+        Context context = new Context();
+        context.setVariable("username", env.getProperty("trello.app.username"));
+        context.setVariable("message", message);
+        context.setVariable("trello_url", "https://trello.com/" + env.getProperty("trello.app.username") + "/boards");
+        context.setVariable("button", "Go to Trello");
+        context.setVariable("show_button", true);
+        context.setVariable("goodbye_message", "Try to finish as many tasks as you can. Good luck!");
+        context.setVariable("company_name", env.getProperty("info.company.name"));
+        context.setVariable("company_email", env.getProperty("info.company.email"));
+        context.setVariable("company_phone", env.getProperty("info.company.phone"));
+        return templateEngine.process("number-of-tasks-email", context);
+    }
+
 }
